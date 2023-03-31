@@ -82,7 +82,7 @@ const App = () => {
 
   /* when the component loads, useEffect will call this function */
   async function fetchCount() {
-    if (!window.ethereum) {
+    if (!window.ethereum  || address === undefined) {
       alertMsg("error", "MetaMask is not installed.");
       return;
     }
@@ -102,6 +102,11 @@ const App = () => {
   }
 
   async function mint() {
+    if (!window.ethereum  || address === undefined) {
+      alertMsg("error", "MetaMask is not installed.");
+      return;
+    }
+
     if (amount > 5) {
       alertMsg("error", "Cannot mint > 5 NFT each time !");
       return;
@@ -132,7 +137,7 @@ const App = () => {
   };
 
   const addCustomNetwork = async () => {
-    if (!window.ethereum) {
+    if (!window.ethereum  || address === undefined) {
       alertMsg("error", "MetaMask is not installed.");
       return;
     }
@@ -159,6 +164,10 @@ const App = () => {
   };
 
   const requestFaucet = async () => {
+    if (!window.ethereum || address === undefined) {
+      alertMsg("error", "MetaMask is not installed.");
+      return;
+    }
     try {
       setLoadingFaucet(true);
       const response = await fetch(Const.FAUCET_API, {

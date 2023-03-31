@@ -15,8 +15,6 @@ import Paper from "@mui/material/Paper";
 import * as Const from "./utils/Const";
 import LoadingButton from "@mui/lab/LoadingButton";
 
-const contractAddress = "0xda4cB4430e8f5df91723804f2C7163127161Ab75";
-
 const App = () => {
   const [fetchNewData, setFetchNewData] = useState(true);
   const [isShowAddNetWork, setIsShowAddNetWork] = useState("");
@@ -88,16 +86,20 @@ const App = () => {
     }
 
     setLoadingCollection(true);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const contract = new ethers.Contract(contractAddress, NFT.abi, provider);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(Const.CONTRACT, NFT.abi, provider);
 
-    let count = await contract.balanceOf(address);
-    setCount(parseInt(count));
-    let metadata = await contract.baseURI();
-    let metaObj = await (await fetch(metadata)).json();
+      let count = await contract.balanceOf(address);
+      setCount(parseInt(count));
+      let metadata = await contract.baseURI();
+      let metaObj = await (await fetch(metadata)).json();
 
-    setBaseUri(metaObj.image);
-    setDescription(metaObj.description);
+      setBaseUri(metaObj.image);
+      setDescription(metaObj.description);
+    } catch (e) {
+      console.log(e)
+    }
     setLoadingCollection(false);
   }
 

@@ -39,16 +39,15 @@ const App = () => {
         }
       }
 
-      const faucetTime = localStorage.getItem("faucet")
-      if (faucetTime){
+      const faucetTime = localStorage.getItem("faucet");
+      if (faucetTime) {
         const currentTime = new Date().getTime();
-        if (currentTime < parseInt(faucetTime) + 5 * 60 * 1000){
+        if (currentTime < parseInt(faucetTime) + 5 * 60 * 1000) {
           setDisableFaucet(true);
         }
       }
     }
   }, [fetchNewData]);
-
 
   const [alert, setAlert] = React.useState({
     open: false,
@@ -80,7 +79,7 @@ const App = () => {
 
   /* when the component loads, useEffect will call this function */
   async function fetchCount() {
-    if (!window.ethereum  || address === undefined) {
+    if (!window.ethereum || address === undefined) {
       alertMsg("error", "MetaMask is not installed.");
       return;
     }
@@ -98,13 +97,13 @@ const App = () => {
       setBaseUri(metaObj.image);
       setDescription(metaObj.description);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
     setLoadingCollection(false);
   }
 
   async function mint() {
-    if (!window.ethereum  || address === undefined) {
+    if (!window.ethereum || address === undefined) {
       alertMsg("error", "MetaMask is not installed.");
       return;
     }
@@ -139,7 +138,7 @@ const App = () => {
   };
 
   const addCustomNetwork = async () => {
-    if (!window.ethereum  || address === undefined) {
+    if (!window.ethereum || address === undefined) {
       alertMsg("error", "MetaMask is not installed.");
       return;
     }
@@ -190,11 +189,14 @@ const App = () => {
       }
       setLoadingFaucet(false);
       setDisableFaucet(true);
-      localStorage.setItem('faucet', new Date().getTime());
-
+      localStorage.setItem("faucet", new Date().getTime());
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const isCollectionExist = () => {
+    return count > 0;
   };
 
   return (
@@ -211,7 +213,11 @@ const App = () => {
             Add Network
           </Button>
           {loadingFaucet ? (
-            <LoadingButton sx={{ marginRight: "20px" }} loading variant="outlined">
+            <LoadingButton
+              sx={{ marginRight: "20px" }}
+              loading
+              variant="outlined"
+            >
               Faucet
             </LoadingButton>
           ) : (
@@ -269,26 +275,34 @@ const App = () => {
         {loadingCollection ? (
           <Loader />
         ) : (
-          <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-            <Grid item xs={12}>
-              <Grid container justifyContent="center" spacing={2}>
-                {Array.from(Array(count).keys()).map((value) => (
-                  <Grid key={value} item>
-                    <Paper
-                      sx={{
-                        height: 350,
-                        width: 250,
-                        backgroundColor: (theme) =>
-                          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-                      }}
-                    >
-                      <img src={baseUri} width="250" height="350"></img>
-                    </Paper>
+          <>
+            {count > 0 ? (
+              <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+                <Grid item xs={12}>
+                  <Grid container justifyContent="center" spacing={2}>
+                    {Array.from(Array(count).keys()).map((value) => (
+                      <Grid key={value} item>
+                        <Paper
+                          sx={{
+                            height: 350,
+                            width: 250,
+                            backgroundColor: (theme) =>
+                              theme.palette.mode === "dark"
+                                ? "#1A2027"
+                                : "#fff",
+                          }}
+                        >
+                          <img src={baseUri} width="250" height="350"></img>
+                        </Paper>
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
+                </Grid>
               </Grid>
-            </Grid>
-          </Grid>
+            ) : (
+              <h5>You do not have a NFT</h5>
+            )}
+          </>
         )}
       </div>
 

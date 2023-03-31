@@ -5,9 +5,6 @@ import "openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 
 error TokenDoesNotExist();
-error MaxSupplyReached();
-error WrongEtherAmount();
-error MaxAmountPerTrxReached();
 error NoEthBalance();
 
 contract CelestiaNFT is ERC721, Ownable {

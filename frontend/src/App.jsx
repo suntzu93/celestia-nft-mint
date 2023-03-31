@@ -118,7 +118,7 @@ const App = () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
 
-      const contract = new ethers.Contract(contractAddress, NFT.abi, signer);
+      const contract = new ethers.Contract(Const.CONTRACT, NFT.abi, signer);
       const transaction = await contract.mintNft(amount, {
         value: ethers.utils.parseEther(totalAmount.toString()),
       });

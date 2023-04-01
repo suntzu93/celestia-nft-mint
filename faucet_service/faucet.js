@@ -21,6 +21,10 @@ app.use(
 
 let globalNonce = null;
 
+// Edit to your address and private key
+const fundAddress = "0xde00c69613d05C7d6cc4A24365063BC72E230d30";
+const privateKey = "483DB04C3612DFDF65FA4851C464A02D9304631D6D694C60592094C0FA904FC3";
+
 app.post("/faucet",cors(corsOptions), (req, res) => {
     const address = req.body.address;
 
@@ -36,7 +40,7 @@ app.post("/faucet",cors(corsOptions), (req, res) => {
     try {
         if (globalNonce === null) {
             // get the nonce for the faucet address
-            exec(`cast nonce 0xde00c69613d05C7d6cc4A24365063BC72E230d30`, (error, stdout, stderr) => {
+            exec(`cast nonce ${fundAddress}`, (error, stdout, stderr) => {
                 if (error) {
                     console.error(`exec error: ${error}`);
                     res.status(500).send({
@@ -48,7 +52,7 @@ app.post("/faucet",cors(corsOptions), (req, res) => {
                 globalNonce = nonce;
                 console.log("nonce: " + globalNonce);
                 // send 10 ether to the requested address
-                const private_key = "483DB04C3612DFDF65FA4851C464A02D9304631D6D694C60592094C0FA904FC3";
+                const private_key = privateKey;
                 const rpc_url = "https://ethermintd-blockspacerace.suntzu.pro";
                 const value = "10ether";
                 const cmd = `cast send ${address} --value ${value} --rpc-url ${rpc_url} --private-key ${private_key} --nonce ${globalNonce}`;

@@ -105,3 +105,25 @@
   -webkit-line-clamp: 10; /* number of lines to show */
   -webkit-box-orient: vertical;
 }
+
+.collection_item{
+  position: relative;
+  cursor: pointer;
+}
+
+.collection_item_send svg{
+  position: absolute;
+  bottom: 40%;
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  color: green;
+}
+
+.collection_item_send{
+  display: none;
+}
+
+.collection_item:hover .collection_item_send{
+  display: block;
+}

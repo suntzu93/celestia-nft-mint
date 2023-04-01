@@ -14,19 +14,24 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import * as Const from "./utils/Const";
 import LoadingButton from "@mui/lab/LoadingButton";
+import SendNftDialog from "./SendNftDialog.jsx";
+import SaveIcon from "@mui/icons-material/Save";
+import SendIcon from '@mui/icons-material/Send';
 
 const App = () => {
   const [fetchNewData, setFetchNewData] = useState(true);
   const [isShowAddNetWork, setIsShowAddNetWork] = useState("");
   const [disableFaucet, setDisableFaucet] = useState(false);
   const { address } = useAccount();
-  const [count, setCount] = useState(0);
+  const [tokenIds, setTokenIds] = useState([]);
+  const [tokenId, setTokenId] = React.useState();
   const [baseUri, setBaseUri] = useState();
   const [description, setDescription] = useState();
   const [amount, setAmount] = useState(1);
   const [loading, setLoading] = useState(false);
   const [loadingCollection, setLoadingCollection] = useState(false);
   const [loadingFaucet, setLoadingFaucet] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (fetchNewData) {
@@ -59,6 +64,7 @@ const App = () => {
   });
 
   const { vertical, horizontal } = alert;
+
   function alertMsg(alertType, message) {
     setAlert({
       ...alert,
@@ -89,8 +95,9 @@ const App = () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const contract = new ethers.Contract(Const.CONTRACT, NFT.abi, provider);
 
-      let count = await contract.balanceOf(address);
-      setCount(parseInt(count));
+      let tokenIds = await contract.getTokenIds(address);
+      const tokenIdsArray = tokenIds.map((id) => id.toNumber());
+      setTokenIds(tokenIdsArray);
       let metadata = await contract.baseURI();
       let metaObj = await (await fetch(metadata)).json();
 
@@ -195,8 +202,9 @@ const App = () => {
     }
   };
 
-  const isCollectionExist = () => {
-    return count > 0;
+  const clickItem = async (id) => {
+    setOpen(true);
+    setTokenId(id);
   };
 
   return (
@@ -213,9 +221,10 @@ const App = () => {
             Add Network
           </Button>
           {loadingFaucet ? (
-            <LoadingButton
-              sx={{ marginRight: "20px" }}
+            <LoadingButton sx={{ marginRight: "20px" }}
               loading
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
               variant="outlined"
             >
               Faucet
@@ -276,12 +285,12 @@ const App = () => {
           <Loader />
         ) : (
           <>
-            {count > 0 ? (
+            {tokenIds.length > 0 ? (
               <Grid sx={{ flexGrow: 1 }} container spacing={2}>
                 <Grid item xs={12}>
                   <Grid container justifyContent="center" spacing={2}>
-                    {Array.from(Array(count).keys()).map((value) => (
-                      <Grid key={value} item>
+                    {tokenIds.map((id) => (
+                      <Grid key={id} item>
                         <Paper
                           sx={{
                             height: 350,
@@ -291,8 +300,12 @@ const App = () => {
                                 ? "#1A2027"
                                 : "#fff",
                           }}
+                          onClick={() => clickItem(id)}
                         >
-                          <img src={baseUri} width="250" height="350"></img>
+                          <div className="collection_item">
+                            <img src={baseUri} width="250" height="350"></img>
+                            <div className="collection_item_send"><SendIcon  color="secondary"/></div>
+                          </div>
                         </Paper>
                       </Grid>
                     ))}
@@ -305,7 +318,13 @@ const App = () => {
           </>
         )}
       </div>
-
+      <SendNftDialog
+        tokenId={tokenId}
+        open={open}
+        setOpen={setOpen}
+        alertMsg={alertMsg}
+        setFetchNewData={setFetchNewData}
+      />
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={alert.open}

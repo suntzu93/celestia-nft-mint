@@ -19,6 +19,8 @@ contract CelestiaNFT is ERC721, Ownable {
 
     address payable public vaultAddress;
 
+    mapping(address => uint256[]) private _addressToTokenIds;
+
     /*///////////////////////////////////////////////////////////////
                                CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
@@ -43,16 +45,17 @@ contract CelestiaNFT is ERC721, Ownable {
     /// @notice Mint NFT function.
     /// @param amount Amount of token that the sender wants to mint.
     function mintNft(uint256 amount) external payable {
-        require(amount < maxAmountPerTrx, "Cannot mint > 5 !");
-        require(totalSupply + amount < maxSupply, "Reach max supply!");
+        require(amount <= maxAmountPerTrx, "Cannot mint > 5 !");
+        require(totalSupply + amount <= maxSupply, "Reach max supply!");
         require(msg.value >= price * amount, "Need to pay up!");
 
-        unchecked {
-            for (uint256 index = 0; index < amount; index++) {
-                uint256 tokenId = totalSupply + 1;
-                _mint(msg.sender, tokenId);
-                totalSupply++;
-            }
+        for (uint256 index = 0; index < amount; index++) {
+            uint256 tokenId = totalSupply + 1;
+            _mint(msg.sender, tokenId);
+            totalSupply++;
+
+            // add token ID to mapping
+            _addressToTokenIds[msg.sender].push(tokenId); 
         }
     }
 
@@ -66,6 +69,42 @@ contract CelestiaNFT is ERC721, Ownable {
 
         uint256 balance = address(this).balance;
         vaultAddress.transfer(balance);
+    }
+
+    /// @notice Get amount of token that an address minted.
+    /// @param _owner Address to query.
+    function getTokenIds(address _owner)
+        public
+        view
+        returns (uint256[] memory)
+    {
+        return _addressToTokenIds[_owner];
+    }
+
+    /// @notice Transfer NFT token.
+    /// @param _to Address to where NFT token is transferred.
+    /// @param _tokenId NFT token ID.
+    function transferTokens(address _to, uint256 _tokenId) public {
+        require(_exists(_tokenId), "Token ID does not exist");
+        require(_isApprovedOrOwner(msg.sender, _tokenId), "Not owner or approved");
+
+        address owner = ownerOf(_tokenId);
+
+        // Remove token from sender's address
+        uint256[] storage tokenIds = _addressToTokenIds[owner];
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            if (tokenIds[i] == _tokenId) {
+                tokenIds[i] = tokenIds[tokenIds.length - 1];
+                tokenIds.pop();
+                break;
+            }
+        }
+
+        // Add token to recipient's address
+        _addressToTokenIds[_to].push(_tokenId);
+
+        // Transfer token ownership
+        safeTransferFrom(owner, _to, _tokenId);
     }
 
     function tokenURI(uint256 tokenId)

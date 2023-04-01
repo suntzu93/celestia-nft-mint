@@ -1,22 +1,5 @@
 ## You can mint NFT on ethemintd test network in conjunction with celestia light node.
 
-To deploy contract use ethemintd network and foundry
+You can read full guide [here](https://curly-dead-93d.notion.site/How-to-build-NFT-project-on-Celestia-and-interact-with-contract-using-react-js-Part-1-4549d70c8cb7402da120c192d23a84f6) to install , deploy contract and run frontend.
 
-### Install foundry
-
-```
-1. curl -L https://foundry.paradigm.xyz | bash
-2. Then, run foundryup in a new terminal session or after reloading your PATH.
-```
-
-### Use forge to deploy contract
-
-```
-PRIVATE_KEY=$(ethermintd keys unsafe-export-eth-key mykey --keyring-backend test)
-
-forge create CelestiaNFT --constructor-args "Celestia NFT" \
-"CEL" "https://gateway.pinata.cloud/ipfs/QmQjgM6nBBFJgLZFUctoLcrTjdnqzMoyHD1TkDYppwJJRJ" \
---contracts script/CelestiaNFT.sol --private-key $PRIVATE_KEY \
---rpc-url http://localhost:8545
-
-```
+Live : https://nft.suntzu.pro/

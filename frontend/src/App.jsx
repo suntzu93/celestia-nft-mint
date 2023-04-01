@@ -186,10 +186,10 @@ const App = () => {
         data.message === "Transaction sent successfully"
       ) {
         alertMsg("success", "Request faucet success!");
+        setDisableFaucet(true);
+        localStorage.setItem("faucet", new Date().getTime());
       }
       setLoadingFaucet(false);
-      setDisableFaucet(true);
-      localStorage.setItem("faucet", new Date().getTime());
     } catch (e) {
       console.log(e);
     }

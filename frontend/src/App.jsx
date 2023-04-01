@@ -108,7 +108,7 @@ const App = () => {
       return;
     }
 
-    if (amount > 5) {
+    if (amount > 4) {
       alertMsg("error", "Cannot mint > 5 NFT each time !");
       return;
     }
@@ -242,7 +242,7 @@ const App = () => {
           <div>
             <h5 className="sale_box_description">{description}</h5>
             <h2>10,000 NFT</h2>
-            <h4>Limit 5 NFT each time mint</h4>
+            <h4>Limit 4 NFT each time mint</h4>
             <h4>0.15 ETH / NFT</h4>
           </div>
           <TextField

@@ -1,129 +1,178 @@
 #root {
-  max-width: 90%;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 
 .id {
-  background-color: #000;
-  width: 100%;
-  height: 100%;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em #646cffaa);
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+    filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
 
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+    a:nth-of-type(2) .logo {
+        animation: logo-spin infinite 20s linear;
+    }
 }
 
 .header {
-  display: flex;
+    /*display: flex;*/
+}
+
+.header img {
+    /*height: 80px;*/
 }
 
 .button_connect {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-left: auto;
-  order: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: auto;
+    order: 2;
 }
 
 .header_1 {
-  display: flex;
+    display: flex;
 }
 
 .header_1 img {
-  margin-left: 50px;
-  margin-top: 20px;
-  transform: rotate(-2deg);
+    margin-left: 50px;
+    margin-top: 20px;
+    transform: rotate(-2deg);
 }
 
 .sale_box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sale_box img {
-  width: 400px;
-  height: 600px;
-}
-.sale_box_action{
-  margin-top: 200px;
-  margin-left: 30px;
-  text-align: left;
+    width: 400px;
+    height: 600px;
 }
 
-.sale_box_action span{
-  margin-top: 200px;
-  margin-left: 30px;
-  text-align: left;
+.sale_box_action {
+    margin-top: 200px;
+    margin-left: 30px;
+    text-align: left;
 }
 
-.sale_box_action button{
-  margin-top: 20px;
-  width: 100px;
+.sale_box_action span {
+    margin-top: 200px;
+    margin-left: 30px;
+    text-align: left;
 }
 
-.collection{
-  margin-top: 50px;
+.sale_box_action button {
+    margin-top: 20px;
+    width: 100px;
 }
 
-.sale_box_description{
-  font-weight: 1;
-  font-size: 1rem;
-  width: 350px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 10; /* number of lines to show */
-  -webkit-box-orient: vertical;
+.collection {
+    margin-top: 50px;
 }
 
-.collection_item{
-  position: relative;
-  cursor: pointer;
+.sale_box_description {
+    font-weight: 1;
+    font-size: 1rem;
+    width: 350px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 10; /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
 
-.collection_item_send svg{
-  position: absolute;
-  bottom: 40%;
-  left: 40%;
-  width: 60px;
-  height: 60px;
-  color: green;
+.collection_item {
+    position: relative;
+    cursor: pointer;
 }
 
-.collection_item_send{
-  display: none;
+.collection_item_send svg {
+    position: absolute;
+    bottom: 40%;
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    color: green;
 }
 
-.collection_item:hover .collection_item_send{
-  display: block;
+.collection_item_send {
+    display: none;
+}
+
+.collection_item:hover .collection_item_send {
+    display: block;
+}
+
+
+.staking_header {
+    display: flex;
+}
+
+.staking_header img {
+    width: 250px;
+}
+
+.staking_content {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.staking_item {
+    margin-left: 20px;
+    background: white;
+    border-radius: 20px;
+    text-align: center;
+    /* display: grid; */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+.staking_item span {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.staking_collection {
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    /* display: grid; */
+    margin-top: 30px;
+    padding: 10px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-bottom: 30px;
 }

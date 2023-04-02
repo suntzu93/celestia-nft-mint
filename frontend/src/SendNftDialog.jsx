@@ -37,7 +37,7 @@ export default function SendNftDialog({
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
 
-      const contract = new ethers.Contract(Const.CONTRACT, NFT.abi, signer);
+      const contract = new ethers.Contract(Const.NFT_CONTRACT, NFT.abi, signer);
       const transaction = await contract.transferTokens(
         recipientWallet,
         tokenId

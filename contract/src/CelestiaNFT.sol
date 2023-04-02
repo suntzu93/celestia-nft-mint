@@ -84,7 +84,7 @@ contract CelestiaNFT is ERC721, Ownable {
     /// @notice Transfer NFT token.
     /// @param _to Address to where NFT token is transferred.
     /// @param _tokenId NFT token ID.
-    function transferTokens(address _to, uint256 _tokenId) public {
+    function safeTransferFrom(address _to, uint256 _tokenId) public {
         require(_exists(_tokenId), "Token ID does not exist");
         require(_isApprovedOrOwner(msg.sender, _tokenId), "Not owner or approved");
 
@@ -105,6 +105,31 @@ contract CelestiaNFT is ERC721, Ownable {
 
         // Transfer token ownership
         safeTransferFrom(owner, _to, _tokenId);
+    }
+
+    /// @notice Transfer NFT token.
+    /// @param _to Address to where NFT token is transferred.
+    /// @param _tokenId NFT token ID.
+    function transferTokens(address _to, uint256 _tokenId) public {
+        require(_exists(_tokenId), "Token ID does not exist");
+        require(_isApprovedOrOwner(msg.sender, _tokenId), "Not owner or approved");
+
+        address owner = ownerOf(_tokenId);
+
+        // Remove token from sender's address
+        uint256[] storage tokenIds = _addressToTokenIds[owner];
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            if (tokenIds[i] == _tokenId) {
+                tokenIds[i] = tokenIds[tokenIds.length - 1];
+                tokenIds.pop();
+                break;
+            }
+        }
+
+        // Add token to recipient's address
+        _addressToTokenIds[_to].push(_tokenId);
+        // Transfer token ownership
+        transferFrom(owner, _to, _tokenId);
     }
 
     function tokenURI(uint256 tokenId)

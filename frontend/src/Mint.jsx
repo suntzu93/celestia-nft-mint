@@ -113,7 +113,7 @@ const Mint = ({ alertMsg, refreshData, setRefreshData }) => {
   return (
     <>
       <div className="header_1">
-        <img src={"/src/assets/collection.png"}></img>
+        <img src={"/collection.png"}></img>
       </div>
       <div className="mint">
         <div className="sale_box">

@@ -147,7 +147,7 @@ const Staking = ({ address, alertMsg, refreshData, setRefreshData }) => {
   return (
     <>
       <div className="staking_header">
-        <img src="/src/assets/staking.png" />
+        <img src="/staking.png" />
       </div>
       <div className="staking_content">
         <div className="staking_item">

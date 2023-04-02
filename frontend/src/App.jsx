@@ -159,7 +159,7 @@ const App = () => {
             }}
           >
             <img
-              src={"/src/assets/logo.png"}
+              src={"/logo.png"}
               style={{ cursor: "pointer" }}
             ></img>
 

@@ -60,7 +60,7 @@ const App = () => {
       setTab("staking");
     }
 
-    if (parseInt(window.ethereum.networkVersion) === Const.CHAIN_ID) {
+    if (window.ethereum === undefined || parseInt(window.ethereum?.networkVersion) === Const.CHAIN_ID) {
       setIsShowAddNetWork("none");
     }
 

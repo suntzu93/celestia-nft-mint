@@ -6,7 +6,7 @@ import {CelestiaNFT} from "src/CelestiaNFT.sol";
 import "../src/CELToken.sol";
 import "../src/Staking.sol";
 
-contract CelestialScript is Script {
+contract Contracts is Script {
     function setUp() public {}
 
     function run() public {

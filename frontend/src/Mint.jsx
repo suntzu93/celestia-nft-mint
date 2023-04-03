@@ -65,7 +65,7 @@ const Mint = ({ alertMsg, refreshData, setRefreshData }) => {
       return;
     }
 
-    if (amount > 4) {
+    if (amount > 5) {
       alertMsg("error", "Cannot mint > 5 NFT each time !");
       return;
     }

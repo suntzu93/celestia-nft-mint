@@ -45,7 +45,7 @@ export default function UnStakeDialog({
     } catch (e) {
       setIsUnStake(false);
       console.log(e);
-      alertMsg("error", "Unable to unstake error : " + e);
+      alertMsg("error", "Unable to unstake error : " + JSON.stringify(e.message));
     }
     setIsUnStake(false);
     setOpen(false);

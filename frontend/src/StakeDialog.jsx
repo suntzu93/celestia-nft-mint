@@ -63,7 +63,7 @@ export default function StakeDialog({
     } catch (e) {
       setIsStake(false);
       console.log(e);
-      alertMsg("error", "Unable to stake error : " + e);
+      alertMsg("error", "Unable to stake error : " + JSON.stringify(e.message));
     }
     setIsStake(false);
     setOpenStake(false);

@@ -135,7 +135,7 @@ const Staking = ({ address, alertMsg, refreshData, setRefreshData }) => {
       alertMsg("success", "Claimed reward success !");
     } catch (e) {
       console.log(e);
-      alertMsg("error", "Unable to claim reward error : " + e);
+      alertMsg("error", "Unable to claim reward error : " + JSON.stringify(e.message));
     }
   };
 

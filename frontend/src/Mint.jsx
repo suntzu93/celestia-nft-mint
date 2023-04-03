@@ -86,11 +86,11 @@ const Mint = ({ alertMsg, refreshData, setRefreshData }) => {
       setRefreshData(true);
       alertMsg("success", "Minted NFT success !");
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
       if (JSON.stringify(e).indexOf("rejected") !== -1){
         alertMsg("error", "Cancel mint NFT !");
       }else {
-        alertMsg("error", "Error to mint NFT error : " + JSON.stringify(e));
+        alertMsg("error", "Error to mint NFT error : " + JSON.stringify(e.message));
       }
 
     }

@@ -24,6 +24,7 @@ let globalNonce = null;
 // Edit to your address and private key
 const fundAddress = "0xde00c69613d05C7d6cc4A24365063BC72E230d30";
 const privateKey = "483DB04C3612DFDF65FA4851C464A02D9304631D6D694C60592094C0FA904FC3";
+const rpc_url = "https://ethermintd-blockspacerace.suntzu.pro";
 
 app.post("/faucet",cors(corsOptions), (req, res) => {
     const address = req.body.address;
@@ -53,7 +54,6 @@ app.post("/faucet",cors(corsOptions), (req, res) => {
                 console.log("nonce: " + globalNonce);
                 // send 10 ether to the requested address
                 const private_key = privateKey;
-                const rpc_url = "https://ethermintd-blockspacerace.suntzu.pro";
                 const value = "10ether";
                 const cmd = `cast send ${address} --value ${value} --rpc-url ${rpc_url} --private-key ${private_key} --nonce ${globalNonce}`;
 
@@ -77,14 +77,12 @@ app.post("/faucet",cors(corsOptions), (req, res) => {
         } else {
             console.log("nonce: " + globalNonce);
             // send 10 ether to the requested address
-            const private_key = "483DB04C3612DFDF65FA4851C464A02D9304631D6D694C60592094C0FA904FC3";
-            const rpc_url = "https://ethermintd-blockspacerace.suntzu.pro";
             const value = "10ether";
-            const cmd = `cast send ${address} --value ${value} --rpc-url ${rpc_url} --private-key ${private_key} --nonce ${globalNonce}`;
-
+            const cmd = `cast send ${address} --value ${value} --rpc-url ${rpc_url} --private-key ${privateKey} --nonce ${globalNonce}`;
             globalNonce++;
             exec(cmd, (error, stdout, stderr) => {
                 if (error) {
+                    globalNonce === null;
                     console.error(`exec error: ${error}`);
                     res.status(500).send({
                         error: "Error sending transaction"

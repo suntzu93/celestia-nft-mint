@@ -117,7 +117,7 @@ const Mint = ({ alertMsg, refreshData, setRefreshData }) => {
       </div>
       <div className="mint">
         <div className="sale_box">
-          <img src="https://gateway.pinata.cloud/ipfs/QmXbU4rDEJTbsBDxE6Hi9X3ycf8LFayVDZQCwuhf699xbq"></img>
+          <img src="/nft_icon.png" alt="nft"></img>
           <div className="sale_box_action">
             <div>
               <h5 className="sale_box_description">{description}</h5>
@@ -171,9 +171,9 @@ const Mint = ({ alertMsg, refreshData, setRefreshData }) => {
                       >
                         <CardMedia
                           component="img"
-                          alt="green iguana"
+                          alt="nft"
                           height="350"
-                          image="https://gateway.pinata.cloud/ipfs/QmXbU4rDEJTbsBDxE6Hi9X3ycf8LFayVDZQCwuhf699xbq"
+                          image="/nft_icon.png"
                         />
                         <CardActions sx={{ justifyContent: "center" }}>
                           <Button

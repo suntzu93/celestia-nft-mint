@@ -200,9 +200,9 @@ const Staking = ({ address, alertMsg, refreshData, setRefreshData }) => {
                   >
                     <CardMedia
                       component="img"
-                      alt="green iguana"
+                      alt="nft"
                       height="350"
-                      image={baseUri}
+                      image="/nft_icon.png"
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h6" component="div">

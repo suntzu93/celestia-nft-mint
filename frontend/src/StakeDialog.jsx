@@ -81,7 +81,7 @@ export default function StakeDialog({
         open={openStake}
         onClose={handleCancel}
       >
-        <DialogTitle>UnStake NFT</DialogTitle>
+        <DialogTitle>Stake NFT</DialogTitle>
         <DialogContent>
           <DialogContentText>
             You have to approve NFT #{tokenId} before stake !
